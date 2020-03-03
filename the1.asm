@@ -86,7 +86,9 @@ SET_A ; set the value of A
 a_loop:
     BTFSC PORTE, 4
     call WAIT_RE4_THEN_DEC
-
+    call LED_A
+    BTFSS PORTE, 3
+    goto a_loop
 a_end:
     call WAIT_RE3
     return
@@ -96,8 +98,9 @@ SET_B ; set the value of B
 b_loop:
     BTFSC PORTE, 4
     call WAIT_RE4_THEN_DEC
-    
-
+    call LED_B
+    BTFSS PORTE, 3
+    goto b_loop
 b_end:
     call WAIT_RE3
     return
@@ -110,10 +113,18 @@ _add:
 _sub:
     call OP_SUB
 _reset:
+    call LED_D
     call DELAY
     call SHUSH
     return
 
+    
+LED_A
+    return
+LED_B
+    return
+LED_D
+    return
 OP_ADD
     return
 OP_SUB
